@@ -53,4 +53,5 @@ def ask_question():
         return jsonify({"answer": "Sorry, I couldn't find an answer."})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 8000))  # Use Azure's expected port
+    app.run(host='0.0.0.0', port=port, debug=True)
