@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EduBot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #0077cc;
+        }
+        #answer {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to EduBotIITD</h1>
+    <p>Ask your academic questions below:</p>
+    <input type="text" id="questionInput" placeholder="Type your question..." style="width: 300px; padding: 10px;" />
+    <br><br>
+    <button onclick="askQuestion()" style="padding: 10px 20px;">Ask</button>
+    <div id="answer"></div>
+
+    <script>
+        async function askQuestion() {
+            const question = document.getElementById('questionInput').value;
+            const response = await fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            });
+            const data = await response.json();
+            document.getElementById('answer').innerText = "Answer: " + data.answer;
+        }
+    </script>
+</body>
+</html>

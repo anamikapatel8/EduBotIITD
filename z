@@ -1,0 +1,43 @@
+Create virtual env
+python3 -m venv venv
+
+Activate the Virtual Environment
+source venv/bin/activate
+
+set up the environment with
+pip install -r requirements.txt
+
+
+Call the /ask Endpoint
+curl -X POST http://127.0.0.1:5000/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What is the deadline for the project submission?"}'
+
+curl -X POST http://127.0.0.1:5000/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What are the office hours?"}'
+
+  Prediction URL: 
+  https://queansiitd.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=EduBotIITDQueAns&api-version=2021-10-01&deploymentName=production
+
+Command to ask: 
+curl -X POST "https://queansiitd.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=EduBotIITDQueAns&api-version=2021-10-01&deploymentName=production" \
+  -H "Ocp-Apim-Subscription-Key: 8Ta0WcxNRXz0F3vbZkfqGUjEZiWccGEqPSgDzuoIDknqypJITHlHJQQJ99BDACGhslBXJ3w3AAAaACOGyfCh" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "top": 3,
+    "question": "What are the office hours?",
+    "includeUnstructuredSources": true,
+    "confidenceScoreThreshold": 0.3,
+    "answerSpanRequest": {
+      "enable": true,
+      "topAnswersWithSpan": 1,
+      "confidenceScoreThreshold": 0.3
+    },
+    "filters": {
+      "metadataFilter": {
+        "logicalOperation": "AND",
+        "metadata": []
+      }
+    }
+  }'
